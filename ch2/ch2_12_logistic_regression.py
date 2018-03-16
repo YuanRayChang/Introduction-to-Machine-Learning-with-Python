@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import mglearn
 
-
+from sklearn.linear_model import LogisticRegression
 from sklearn.datasets import load_breast_cancer
 cancer = load_breast_cancer()
 X_train, X_test, y_train, y_test = train_test_split(\
