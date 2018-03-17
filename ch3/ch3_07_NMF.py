@@ -10,12 +10,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import mglearn
 
-
-
 from sklearn.datasets import fetch_lfw_people
 people = fetch_lfw_people(min_faces_per_person=20, resize=0.7)
 image_shape = people.images[0].shape
-
         
 mask = np.zeros(people.target.shape, dtype=np.bool)
 for target in np.unique(people.target):
@@ -28,3 +25,26 @@ X_train, X_test, y_train, y_test = train_test_split( \
 
 mglearn.plots.plot_nmf_illustration()
 mglearn.plots.plot_nmf_faces(X_train, X_test, image_shape)
+
+from sklearn.decomposition import NMF
+nmf = NMF(n_components=15, random_state=0)
+nmf.fit(X_train)
+X_train_nmf = nmf.transform(X_train)
+X_test_nmf = nmf.transform(X_test)
+
+fix, axes = plt.subplots(3, 5, figsize=(15, 12), \
+            subplot_kw={'xticks': (), 'yticks': ()})
+for i, (component, ax) in enumerate(zip(nmf.components_, axes.ravel())):
+    ax.imshow(component.reshape(image_shape))
+    ax.set_title("{}. component".format(i))
+    
+    
+# display the data that has large weighting for comp
+compn = 11
+inds = np.argsort(X_train_nmf[:,compn])[::-1]
+fix, axes = plt.subplots(2, 5, figsize=(15, 8), \
+            subplot_kw={'xticks': (), 'yticks': ()})
+for i, (ind, ax) in enumerate(zip(inds, axes.ravel())):
+    ax.imshow(X_train[ind].reshape(image_shape))
+    ax.set_title("{}. component".format(i))
+    
