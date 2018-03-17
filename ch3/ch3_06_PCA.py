@@ -44,7 +44,7 @@ knn.fit(X_train, y_train)
 print("Test set score of 1-nn: {:.2f}".format(knn.score(X_test, y_test)))
 
 mglearn.plots.plot_pca_whitening()
-
+from sklearn.decomposition import PCA
 pca = PCA(n_components=100, whiten=True, random_state=0)
 pca.fit(X_train)
 X_train_pca = pca.transform(X_train)
