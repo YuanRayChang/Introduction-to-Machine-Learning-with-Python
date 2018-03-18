@@ -11,8 +11,6 @@ import pandas as pd
 import mglearn
 
 from sklearn.cluster import KMeans
-
-
 from sklearn.datasets import make_moons
 
 X, y = make_moons(n_samples=200, noise=0.05, random_state=0)
