@@ -73,3 +73,18 @@ for cluster in range(max(labels) + 1):
                                y_people[mask], axes):
        ax.imshow(image.reshape(image_shape), vmin=0, vmax=1)
        ax.set_title(people.target_names[label].split()[-1])
+
+km = KMeans(n_clusters=10, random_state=0)
+labels_km = km.fit_predict(X_pca)
+print("Cluster sizes k-means: {}".format(np.bincount(labels_km)))
+fig, axes = plt.subplots(2, 5, subplot_kw={'xticks': (), \
+            'yticks': ()}, figsize=(12, 4))
+for center, ax in zip(km.cluster_centers_, axes.ravel()):
+    ax.imshow(pca.inverse_transform(center).reshape(\
+              image_shape), vmin=0, vmax=1)
+
+
+
+
+
+
