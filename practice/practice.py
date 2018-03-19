@@ -56,38 +56,39 @@ tree = DecisionTreeRegressor(max_depth=18, min_samples_split=2, \
                              min_samples_leaf=1, random_state=1)
 tree.fit(X_train, y_train)
 print("DecisionTreeRegressor:")
-print("Training set score: {}".format(tree.score(X_train, y_train)))
-print("Test set score: {}\n".format(tree.score(X_test, y_test)))
+print("Training set score: {:.3f}".format(tree.score(X_train, y_train)))
+print("Test set score: {:.3f}\n".format(tree.score(X_test, y_test)))
 #print("Number of features: {}".format(tree.n_features_))
 #print("Feature importances: {}".format(tree.feature_importances_ ))
 
 
 # Start using RandomForestRegressor
 print("RandomForestRegressor:")
-forest = RandomForestRegressor(n_estimators=2500, random_state=0,\
-                               max_features=10, min_samples_split=10, \
-                               min_samples_leaf=5, n_jobs=5)
+forest = RandomForestRegressor(n_estimators=250, random_state=0,\
+                               max_features=10, min_samples_split=4, \
+                               min_samples_leaf=2, n_jobs=5)
 forest.fit(X_train, y_train)
-print("Training set score: {}".format(forest.score(X_train, y_train)))
-print("Test set score: {}\n".format(forest.score(X_test, y_test)))
+print("Training set score: {:.3f}".format(forest.score(X_train, y_train)))
+print("Test set score: {:.3f}\n".format(forest.score(X_test, y_test)))
 
 # Start using GradientBoostingClassifier
 print("GradientBoostingRegressor:")
 gbrt = GradientBoostingRegressor(random_state=0)
 gbrt.fit(X_train, y_train)
-print("Training set score: {}".format(gbrt.score(X_train, y_train)))
-print("Test set score: {}\n".format(gbrt.score(X_test, y_test)))
+print("Training set score: {:.3f}".format(gbrt.score(X_train, y_train)))
+print("Test set score: {:.3f}\n".format(gbrt.score(X_test, y_test)))
 
 # Start using MLPRegressor
 print("MLPRegressor:")
-mlp = MLPRegressor(random_state=0, max_iter=1000, \
-                   hidden_layer_sizes=[100, 100, 100, 100] )
+mlp = MLPRegressor(random_state=0, max_iter=1500, \
+      solver='lbfgs', alpha=0.0001, \
+      hidden_layer_sizes=[100, 100, 100, 100] )
 mlp.fit(X_train, y_train)
-print("Training set score: {}".format(mlp.score(X_train, y_train)))
-print("Test set score: {}\n".format(mlp.score(X_test, y_test)))
+print("Training set score: {:.3f}".format(mlp.score(X_train, y_train)))
+print("Test set score: {:.3f}\n".format(mlp.score(X_test, y_test)))
 
 # Start using Ridge
 print("Ridge:")
 ridge = Ridge().fit(X_train, y_train)
-print("Training set score: {}".format(ridge.score(X_train, y_train)))
-print("Test set score: {}\n".format(ridge.score(X_test, y_test)))
+print("Training set score: {:.3f}".format(ridge.score(X_train, y_train)))
+print("Test set score: {:.3f}\n".format(ridge.score(X_test, y_test)))
