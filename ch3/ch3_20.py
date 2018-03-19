@@ -12,7 +12,12 @@ import mglearn
 
 from sklearn.decomposition import PCA
 from sklearn.cluster import DBSCAN
+from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 from sklearn.datasets import fetch_lfw_people
+from sklearn.metrics.cluster import adjusted_rand_score
+from scipy.cluster.hierarchy import dendrogram, ward
+
 people = fetch_lfw_people(min_faces_per_person=20, resize=0.7)
 image_shape = people.images[0].shape
 mask = np.zeros(people.target.shape, dtype=np.bool)
@@ -83,6 +88,16 @@ for center, ax in zip(km.cluster_centers_, axes.ravel()):
     ax.imshow(pca.inverse_transform(center).reshape(\
               image_shape), vmin=0, vmax=1)
 
+mglearn.plots.plot_kmeans_faces(km, pca, X_pca, X_people, \
+                                y_people, people.target_names)
+
+agglomerative = AgglomerativeClustering(n_clusters=10)
+labels_agg = agglomerative.fit_predict(X_pca)
+print("CLuster sizes agglomerative clustering: {}".\
+      format(np.bincount(labels_agg)))
+
+print("ARI: {:.2f}".format(adjusted_rand_score(\
+      labels_agg, labels_km)))
 
 
 
